@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jersey0-deployment
+  labels:
+    app: jersey0
+spec:
+  replicas: 2
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: jersey0
+  template:
+    metadata:
+      labels:
+        app: jersey0
+    spec:
+      containers:
+      - name: jersey0
+        image: quay.io/bjethwan/jersey0:v2
+        ports:
+        - containerPort: 8080
+
+
